@@ -5,7 +5,13 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Passenger(models.Model):
+class FixModel(models.Model):
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+
+class Passenger(FixModel):
 
     GENDERS = (
         ('F', 'Female'),
@@ -26,7 +32,7 @@ class Passenger(models.Model):
         return f'{self.first_name} {self.last_name}'
 
 
-class Flight(models.Model):
+class Flight(FixModel):
 
     AIRLINES = (
         ('THY', 'Turkish Airlines'),
@@ -58,7 +64,7 @@ class Flight(models.Model):
 
 
 
-class Reservation(models.Model):
+class Reservation(FixModel):
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
     passenger = models.ManyToManyField(Passenger)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
