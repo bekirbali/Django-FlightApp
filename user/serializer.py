@@ -23,3 +23,11 @@ class UserSerializer(serializers.ModelSerializer):
             validate_password(password)
             attrs.update({'password': make_password(password)})
         return super().validate(attrs)
+    
+
+from dj_rest_auth.serializers import TokenSerializer
+
+class UserTokenSerializer(TokenSerializer):
+    
+    class Meta(TokenSerializer.Meta):
+        fields = ('key', 'user')
