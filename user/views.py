@@ -2,13 +2,17 @@ from django.shortcuts import render
 
 from rest_framework.viewsets import ModelViewSet 
 
+from rest_framework.mixins import CreateModelMixin
+from rest_framework.viewsets import GenericViewSet
+from rest_framework.permissions import AllowAny
+
 from .serializer import(
     User, UserSerializer
 )
 
 # Create your views here.
 
-class UserCreateView(createModelMixin, GenericViewSet):
+class UserCreateView(CreateModelMixin, GenericViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer()
     permission_classes = [AllowAny]
@@ -24,6 +28,9 @@ class UserCreateView(createModelMixin, GenericViewSet):
         data = serializer.data
         token = Token.objects.create(user=user)
         data['key'] = token.key
+
+        headers = self.get_success_headers(serializer.data)
+        return Response(data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class UserView(ModelViewSet):
