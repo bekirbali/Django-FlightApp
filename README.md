@@ -1,3 +1,7 @@
 # Getting Started with Django
 
-Guests readonly
+## Guests Readonly
+
+## Users can create Reservation
+
+## Admins can create Flights
