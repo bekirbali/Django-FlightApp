@@ -5,10 +5,15 @@ urlpatterns = [
 ]
 
 
-# from rest_framework.routers import DefaultRouter
-# from .views import UserView, UserCreateView
+from rest_framework.routers import DefaultRouter
+from .views import (
+    PassengerView,
+    FlightView,
+    ReservationView
+)
 
-# router = DefaultRouter()
-# router.register('create',UserCreateView)
-# router.register('',UserView)
-# urlpatterns+=router.urls
+router = DefaultRouter()
+router.register('passenger', PassengerView)
+router.register('flight', FlightView)
+router.register('reservation', ReservationView)
+urlpatterns+=router.urls
